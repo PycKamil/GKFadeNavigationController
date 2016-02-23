@@ -148,17 +148,6 @@
     return _visualEffectView;
 }
 
-#pragma mark - UI support
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    if (self.navigationBarVisibility == GKFadeNavigationControllerNavigationBarVisibilityHidden) {
-        return UIStatusBarStyleLightContent;
-    } else {
-        return UIStatusBarStyleDefault;
-    }
-}
-
 #pragma mark - <UINavigationControllerDelegate>
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -268,7 +257,7 @@
                 // iOS 8+
                 self.visualEffectView.alpha = 0;
             }
-            self.navigationBar.tintColor = [UIColor whiteColor];
+            self.navigationBar.tintColor = [UIColor blackColor];
             self.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor clearColor]};
         }
     } completion:^(BOOL finished) {
