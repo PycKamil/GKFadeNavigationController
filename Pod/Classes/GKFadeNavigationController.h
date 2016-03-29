@@ -35,4 +35,10 @@ typedef NS_ENUM(NSUInteger, GKFadeNavigationControllerNavigationBarVisibility) {
  */
 - (void)setNeedsNavigationBarVisibilityUpdateAnimated:(BOOL)animated;
 
+/**
+ You can use GKFadeNavigationController to store UISearchController.
+ */
+
+- (void)storeSearchController:(nonnull UISearchController *)searchController;
+
 @end
