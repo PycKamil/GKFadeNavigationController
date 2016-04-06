@@ -132,20 +132,39 @@
         // Create a the fake navigation bar background
         UIVisualEffect *blurEffect;
         blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-        
+
         _visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-        _visualEffectView.frame = CGRectMake(0, -20.f, self.view.frame.size.width, 64.f);
-        _visualEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _visualEffectView.frame = CGRectMake(0, -20.f, self.view.frame.size.width, self.navigationBar.frame.size.height + 20.0f);
+        _visualEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _visualEffectView.userInteractionEnabled = NO;
-        
+
         // Shadow line
         UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 63.5f, self.view.frame.size.width, 0.5f)];
         shadowView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2f];
-        shadowView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
+        shadowView.translatesAutoresizingMaskIntoConstraints = NO;
         [self.visualEffectView addSubview:shadowView];
+
+        NSDictionary *views = NSDictionaryOfVariableBindings(shadowView);
+        NSMutableArray *constraints = [NSMutableArray arrayWithCapacity:4];
+        [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[shadowView]-0-|"
+                                                                                 options:NSLayoutFormatAlignAllLeft | NSLayoutFormatAlignAllRight
+                                                                                 metrics:nil
+                                                                                   views:views]];
+
+        [constraints addObject:[NSLayoutConstraint constraintWithItem:shadowView
+                                                            attribute:NSLayoutAttributeTop
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:_visualEffectView
+                                                            attribute:NSLayoutAttributeBottom
+                                                           multiplier:1.0
+                                                             constant:-0.5]];
+
+        [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[shadowView(0.5)]"
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:views]];
+        [self.visualEffectView addConstraints:constraints];
     }
-    
     return _visualEffectView;
 }
 
