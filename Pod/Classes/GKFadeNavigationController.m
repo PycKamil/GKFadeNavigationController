@@ -18,7 +18,6 @@
 
 @property (nonatomic) GKFadeNavigationControllerNavigationBarVisibility navigationBarVisibility;
 @property (nonatomic, strong) UIColor *originalTintColor;
-@property (nonatomic, strong) NSMutableArray <UISearchController *>*storedSearchControllers;
 
 @end
 
@@ -308,13 +307,6 @@
     } else {
         NSLog(@"GKFadeNavigationController error: setNeedsNavigationBarVisibilityUpdateAnimated is called but the current topmost view controller does not conform to GKFadeNavigationControllerDelegate protocol!");
     }
-}
-
-- (void)storeSearchController:(UISearchController *)searchController {
-    if (self.storedSearchControllers == nil) {
-        self.storedSearchControllers = [NSMutableArray array];
-    }
-    [self.storedSearchControllers addObject:searchController];
 }
 
 @end
